@@ -1,0 +1,80 @@
+@import '../../styles/trigs';
+$menu-items:4 !default;
+
+
+:host{
+  display: block;
+}
+
+
+%ball{
+  background: rebeccapurple;
+  border-radius:100%;
+  width:60px;
+  height:60px;
+  position:absolute;
+  bottom:0;
+  color:white;
+  text-align:center;
+  line-height:60px;
+  transform:translate3d(0,0,0);
+  transition:transform ease-out 200ms;
+}
+.menu-open{
+  display:none;
+}
+.menu-item{
+  @extend %ball;
+  background-color: rebeccapurple;
+}
+
+.menu{
+  position: fixed;
+  bottom: 20%;
+  right: 20%;
+  margin-right: 20%;
+  $width:70px;
+  $height:70px;
+  height: $height;
+  box-sizing:border-box;
+  font-size: 2rem;
+  text-align:left;
+  width: 100px;
+
+}
+.menu:hover{
+  @for $i from 1 through $menu-items {
+     & > :nth-child(#{$i+2}){
+      transition-duration: 800ms;
+      transform: translate3d(- sin(($i+1/2)/$menu-items*360deg)*45px, cos(($i+1/2)/$menu-items*360deg)*45px, 0);
+    }
+  }
+  .menu-open-button{
+    opacity: 0;
+  }
+}
+
+
+.menu-item{
+  z-index: 1;
+}
+.menu-item:hover{
+  background-color: mediumpurple;
+}
+
+
+.menu-open-button{
+  z-index: 2;
+  @extend %ball;
+  transition-duration:400ms;
+  cursor: pointer;
+}
+
+.menu-open:hover+.menu-open-button{
+  transition-timing-function:linear;
+  transition-duration:90ms;
+
+  opacity: 0;
+}
+
+@debug rad(72);
